@@ -1,0 +1,24 @@
+---
+import Icon from "./Icon.astro";
+const { title, description, bullets, icon } = Astro.props;
+---
+<div class="group rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-cyanBrand-500/30 hover:bg-white/7 hover:shadow-glow">
+  <div class="flex items-start gap-3">
+    <div class="rounded-xl border border-white/10 bg-ink-950/40 p-3 text-cyanBrand-500">
+      <Icon name={icon} />
+    </div>
+    <div>
+      <h3 class="font-display text-lg font-semibold">{title}</h3>
+      <p class="mt-2 text-sm text-white/70">{description}</p>
+    </div>
+  </div>
+
+  <ul class="mt-4 space-y-2 text-sm text-white/75">
+    {bullets?.map((b) => (
+      <li class="flex gap-2">
+        <span class="mt-2 inline-block h-1.5 w-1.5 flex-none rounded-full bg-cyanBrand-500/90"></span>
+        <span>{b}</span>
+      </li>
+    ))}
+  </ul>
+</div>

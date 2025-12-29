@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base look */
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ink-900 text-white antialiased;
+}
+
+::selection {
+  background: rgba(2, 235, 234, 0.25);
+}
+
+a {
+  @apply text-inherit;
+}
+
+/* Fancy background grid */
+.bg-grid {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(255, 255, 255, 0.08) 1px,
+    transparent 0
+  );
+  background-size: 28px 28px;
+}
+
+/* Better prose for MDX */
+.prose-safaryar {
+  @apply prose prose-invert max-w-none;
+  --tw-prose-body: rgba(234, 242, 255, 0.88);
+  --tw-prose-headings: #ffffff;
+  --tw-prose-links: #02ebea;
+  --tw-prose-bold: #ffffff;
+  --tw-prose-counters: rgba(234, 242, 255, 0.65);
+  --tw-prose-bullets: rgba(234, 242, 255, 0.35);
+  --tw-prose-hr: rgba(255, 255, 255, 0.12);
+  --tw-prose-quotes: rgba(234, 242, 255, 0.92);
+  --tw-prose-quote-borders: rgba(2, 235, 234, 0.3);
+  --tw-prose-captions: rgba(234, 242, 255, 0.7);
+  --tw-prose-code: rgba(234, 242, 255, 0.92);
+  --tw-prose-pre-code: rgba(234, 242, 255, 0.92);
+  --tw-prose-pre-bg: rgba(6, 10, 18, 0.6);
+  --tw-prose-th-borders: rgba(255, 255, 255, 0.15);
+  --tw-prose-td-borders: rgba(255, 255, 255, 0.1);
+}

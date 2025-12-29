@@ -1,0 +1,126 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import Container from "../components/Container.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import Button from "../components/Button.astro";
+import { site } from "../config/site";
+---
+
+<BaseLayout title="Contact" description="Contact Safaryar Technologies to discuss your project.">
+  <Navbar />
+
+  <main class="pt-12">
+    <Container>
+      <SectionHeading
+        eyebrow="Contact"
+        title="Let’s talk about your project"
+        subtitle="Tell us what you’re building. We usually reply within 24 hours."
+      />
+
+      <div class="mt-10 grid gap-6 lg:grid-cols-3">
+        <div class="lg:col-span-2 rounded-3xl border border-white/10 bg-white/5 p-8">
+          <!--
+            IMPORTANT:
+            This form uses FormSubmit (no backend) as a default.
+            Replace YOUR_EMAIL_HERE with your email OR use Formspree/Netlify later.
+          -->
+          <form
+            class="grid gap-4"
+            action="https://formsubmit.co/YOUR_EMAIL_HERE"
+            method="POST"
+          >
+            <input type="hidden" name="_subject" value="New inquiry from Safaryar website" />
+            <input type="hidden" name="_captcha" value="false" />
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label class="grid gap-2">
+                <span class="text-sm text-white/80">Full name</span>
+                <input
+                  name="name"
+                  required
+                  class="rounded-xl border border-white/12 bg-ink-950/40 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none focus:ring-2 focus:ring-cyanBrand-500/60"
+                  placeholder="Your name"
+                />
+              </label>
+
+              <label class="grid gap-2">
+                <span class="text-sm text-white/80">Email</span>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  class="rounded-xl border border-white/12 bg-ink-950/40 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none focus:ring-2 focus:ring-cyanBrand-500/60"
+                  placeholder="you@example.com"
+                />
+              </label>
+            </div>
+
+            <label class="grid gap-2">
+              <span class="text-sm text-white/80">Service needed</span>
+              <select
+                name="service"
+                class="rounded-xl border border-white/12 bg-ink-950/40 px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-cyanBrand-500/60"
+              >
+                <option>Full-Stack Web Development</option>
+                <option>Mobile App Development</option>
+                <option>UI/UX Design</option>
+                <option>Hosting & Deployment</option>
+                <option>Maintenance & Support</option>
+                <option>Not sure yet</option>
+              </select>
+            </label>
+
+            <label class="grid gap-2">
+              <span class="text-sm text-white/80">Project details</span>
+              <textarea
+                name="message"
+                rows="6"
+                required
+                class="rounded-xl border border-white/12 bg-ink-950/40 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none focus:ring-2 focus:ring-cyanBrand-500/60"
+                placeholder="What are you building? Timeline? Any links?"
+              ></textarea>
+            </label>
+
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div class="text-xs text-white/55">
+                Prefer email? Write to{" "}
+                <a class="text-cyanBrand-500 hover:underline" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+              </div>
+              <Button>Send message →</Button>
+            </div>
+          </form>
+
+          <p class="mt-4 text-xs text-white/55">
+            Note: Replace <span class="text-white/80">YOUR_EMAIL_HERE</span> in this file with your real inbox.
+          </p>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-8">
+          <div class="font-display text-lg font-semibold">Contact info</div>
+          <div class="mt-4 space-y-3 text-sm text-white/75">
+            <div>
+              <div class="text-xs uppercase tracking-[0.22em] text-white/60">Email</div>
+              <a class="text-cyanBrand-500 hover:underline" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+            </div>
+            <div>
+              <div class="text-xs uppercase tracking-[0.22em] text-white/60">Location</div>
+              <div>{site.contact.location}</div>
+            </div>
+            <div>
+              <div class="text-xs uppercase tracking-[0.22em] text-white/60">Social</div>
+              <div class="mt-2 flex flex-col gap-2">
+                {site.socials.map((s) => (
+                  <a href={s.href} class="text-white/75 hover:text-white">{s.label} →</a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </main>
+
+  <Footer />
+</BaseLayout>

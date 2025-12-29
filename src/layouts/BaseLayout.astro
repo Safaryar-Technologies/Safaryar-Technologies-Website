@@ -1,0 +1,66 @@
+---
+import "../styles/global.css";
+import { site } from "../config/site";
+
+type Props = {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+};
+
+const { title, description, canonicalPath } = Astro.props;
+
+const pageTitle = title ? `${title} • ${site.name}` : site.name;
+const pageDescription = description ?? site.description;
+
+const canonical = canonicalPath
+  ? new URL(canonicalPath, site.url).toString()
+  : new URL(Astro.url.pathname, site.url).toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+
+    <title>{pageTitle}</title>
+  </head>
+
+  <body class="min-h-screen">
+    <!-- Background -->
+    <div class="pointer-events-none fixed inset-0 -z-10">
+      <div class="absolute inset-0 bg-ink-900"></div>
+      <div class="absolute inset-0 bg-grid opacity-25"></div>
+
+      <!-- glow blobs -->
+      <div class="absolute -top-40 -left-32 h-[520px] w-[520px] rounded-full blur-3xl"
+        style="background: radial-gradient(circle, rgba(2,235,234,0.25), transparent 60%);">
+      </div>
+      <div class="absolute -bottom-40 -right-32 h-[520px] w-[520px] rounded-full blur-3xl"
+        style="background: radial-gradient(circle, rgba(2,235,234,0.16), transparent 60%);">
+      </div>
+    </div>
+
+    <slot />
+  </body>
+</html>

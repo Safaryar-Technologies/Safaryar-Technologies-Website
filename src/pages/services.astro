@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import Container from "../components/Container.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import Button from "../components/Button.astro";
+import { site } from "../config/site";
+---
+
+<BaseLayout title="Services" description="Full-stack web development, mobile apps, UI/UX, deployment, and maintenance.">
+  <Navbar />
+
+  <main class="pt-12">
+    <Container>
+      <SectionHeading
+        eyebrow="Services"
+        title="What Safaryar delivers"
+        subtitle="Pick a single service or an end-to-end delivery package. We tailor scope to your goals."
+      />
+
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {site.services.map((s) => (
+          <ServiceCard
+            title={s.title}
+            description={s.description}
+            bullets={s.bullets}
+            icon={s.icon}
+          />
+        ))}
+      </div>
+
+      <div class="mt-12 rounded-3xl border border-white/10 bg-white/5 p-8">
+        <div class="font-display text-xl font-semibold">Typical engagement options</div>
+        <div class="mt-4 grid gap-4 md:grid-cols-3">
+          <div class="rounded-2xl border border-white/10 bg-ink-950/30 p-5">
+            <div class="text-sm font-semibold">Project-based</div>
+            <p class="mt-2 text-sm text-white/70">Fixed scope, fixed milestones, clear delivery timeline.</p>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-ink-950/30 p-5">
+            <div class="text-sm font-semibold">Retainer</div>
+            <p class="mt-2 text-sm text-white/70">Ongoing improvements, maintenance, and feature development.</p>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-ink-950/30 p-5">
+            <div class="text-sm font-semibold">Team extension</div>
+            <p class="mt-2 text-sm text-white/70">Add Safaryar engineers/designers to your existing team.</p>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <Button href="/contact">Discuss your project →</Button>
+        </div>
+      </div>
+    </Container>
+  </main>
+
+  <Footer />
+</BaseLayout>

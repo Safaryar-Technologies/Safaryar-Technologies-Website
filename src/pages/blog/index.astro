@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+import Container from "../../components/Container.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="Blog" description="Articles and insights from Safaryar Technologies.">
+  <Navbar />
+
+  <main class="pt-12">
+    <Container>
+      <SectionHeading
+        eyebrow="Blog"
+        title="Insights from Safaryar"
+        subtitle="Engineering, design, and delivery lessons — plus company updates."
+      />
+
+      <div class="mt-10 grid gap-4 lg:grid-cols-3">
+        {posts.map((p) => (
+          <a
+            href={`/blog/${p.slug}`}
+            class="block rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-cyanBrand-500/30 hover:bg-white/7 hover:shadow-glow"
+          >
+            <div class="text-xs text-white/55">{p.data.pubDate.toDateString()}</div>
+            <div class="mt-2 font-display text-lg font-semibold">{p.data.title}</div>
+            <p class="mt-2 text-sm text-white/70">{p.data.description}</p>
+            <div class="mt-4 text-cyanBrand-500/90">Read →</div>
+          </a>
+        ))}
+      </div>
+    </Container>
+  </main>
+
+  <Footer />
+</BaseLayout>

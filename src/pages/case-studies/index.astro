@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Navbar from "../../components/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+import Container from "../../components/Container.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+
+const projects = (await getCollection("case-studies"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="Case Studies" description="Safaryar case studies and project highlights.">
+  <Navbar />
+
+  <main class="pt-12">
+    <Container>
+      <SectionHeading
+        eyebrow="Case Studies"
+        title="Projects we’ve delivered"
+        subtitle="Each case study is an MDX file in src/content/case-studies."
+      />
+
+      <div class="mt-10 grid gap-4 lg:grid-cols-3">
+        {projects.map((p) => (
+          <ProjectCard
+            title={p.data.title}
+            description={p.data.description}
+            href={`/case-studies/${p.slug}`}
+            tags={p.data.tags}
+          />
+        ))}
+      </div>
+    </Container>
+  </main>
+
+  <Footer />
+</BaseLayout>

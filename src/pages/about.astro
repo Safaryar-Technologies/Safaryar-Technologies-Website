@@ -1,0 +1,77 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import Container from "../components/Container.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import Button from "../components/Button.astro";
+import { site } from "../config/site";
+---
+
+<BaseLayout title="About" description="About Safaryar Technologies — how we work and what we value.">
+  <Navbar />
+
+  <main class="pt-12">
+    <Container>
+      <SectionHeading
+        eyebrow="About"
+        title="A software house built for quality delivery"
+        subtitle="Safaryar partners with teams worldwide to design, build, deploy, and maintain modern software."
+      />
+
+      <div class="mt-10 grid gap-6 lg:grid-cols-3">
+        <div class="lg:col-span-2 rounded-3xl border border-white/10 bg-white/5 p-8">
+          <div class="font-display text-xl font-semibold">Our approach</div>
+          <p class="mt-3 text-white/75">
+            We combine UI/UX design and engineering so you get a product that looks premium and performs reliably.
+            Whether you’re starting from scratch or improving an existing system, we work in clear milestones with
+            predictable communication.
+          </p>
+
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            <div class="rounded-2xl border border-white/10 bg-ink-950/30 p-5">
+              <div class="text-sm font-semibold">Clarity</div>
+              <p class="mt-2 text-sm text-white/70">Scope, milestones, and progress are always visible.</p>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-ink-950/30 p-5">
+              <div class="text-sm font-semibold">Quality</div>
+              <p class="mt-2 text-sm text-white/70">Maintainable code, good UX, and stable deployments.</p>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-ink-950/30 p-5">
+              <div class="text-sm font-semibold">Ownership</div>
+              <p class="mt-2 text-sm text-white/70">We treat your product like it’s ours, end-to-end.</p>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-ink-950/30 p-5">
+              <div class="text-sm font-semibold">Support</div>
+              <p class="mt-2 text-sm text-white/70">We’re available for maintenance and improvements.</p>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <Button href="/contact">Work with us →</Button>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-8">
+          <div class="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">Quick facts</div>
+          <div class="mt-5 space-y-4">
+            <div class="rounded-2xl border border-white/10 bg-ink-950/30 p-5">
+              <div class="text-sm font-semibold">Company</div>
+              <div class="mt-1 text-sm text-white/70">{site.name}</div>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-ink-950/30 p-5">
+              <div class="text-sm font-semibold">Location</div>
+              <div class="mt-1 text-sm text-white/70">{site.contact.location}</div>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-ink-950/30 p-5">
+              <div class="text-sm font-semibold">Services</div>
+              <div class="mt-1 text-sm text-white/70">Web • Mobile • UI/UX • Deployment • Maintenance</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </main>
+
+  <Footer />
+</BaseLayout>
