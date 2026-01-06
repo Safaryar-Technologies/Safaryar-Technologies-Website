@@ -11,6 +11,7 @@ import ProjectCard from "../components/ProjectCard.astro";
 import Icon from "../components/Icon.astro";
 import { site } from "../config/site";
 import { getCollection } from "astro:content";
+import PlanBadges from "../components/PlanBadges.astro";
 
 const caseStudies = (await getCollection("case-studies"))
   .filter((p) => !p.data.draft)
@@ -65,8 +66,10 @@ const caseStudies = (await getCollection("case-studies"))
 
           <!-- Right side feature panel -->
           <div class="relative">
-            <div class="absolute -inset-2 rounded-3xl blur-2xl"
-              style="background: radial-gradient(circle, rgba(2,235,234,0.18), transparent 55%);">
+            <div
+              class="absolute -inset-2 rounded-3xl blur-2xl"
+              style="background: radial-gradient(circle, rgba(2,235,234,0.18), transparent 55%);"
+            >
             </div>
 
             <div class="relative rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow">
@@ -89,7 +92,9 @@ const caseStudies = (await getCollection("case-studies"))
                     <div class="mt-1 text-cyanBrand-500"><Icon name="spark" /></div>
                     <div>
                       <div class="text-sm font-semibold">Modern UI that feels premium</div>
-                      <div class="mt-1 text-xs text-white/65">Design systems, crisp typography, conversion-first layouts.</div>
+                      <div class="mt-1 text-xs text-white/65">
+                        Design systems, crisp typography, conversion-first layouts.
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -99,7 +104,9 @@ const caseStudies = (await getCollection("case-studies"))
                     <div class="mt-1 text-cyanBrand-500"><Icon name="shield" /></div>
                     <div>
                       <div class="text-sm font-semibold">Stability and maintainability</div>
-                      <div class="mt-1 text-xs text-white/65">Clean code, structured delivery, support plans available.</div>
+                      <div class="mt-1 text-xs text-white/65">
+                        Clean code, structured delivery, support plans available.
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -109,7 +116,9 @@ const caseStudies = (await getCollection("case-studies"))
                     <div class="mt-1 text-cyanBrand-500"><Icon name="cloud" /></div>
                     <div>
                       <div class="text-sm font-semibold">Deployments done right</div>
-                      <div class="mt-1 text-xs text-white/65">CI/CD, monitoring, backups, hosting guidance.</div>
+                      <div class="mt-1 text-xs text-white/65">
+                        CI/CD, monitoring, backups, hosting guidance.
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -154,6 +163,9 @@ const caseStudies = (await getCollection("case-studies"))
         </div>
       </Container>
     </section>
+
+    <!-- PLANS -->
+    <PlanBadges />
 
     <!-- PROCESS -->
     <section class="mt-20">
@@ -208,8 +220,10 @@ const caseStudies = (await getCollection("case-studies"))
     <section class="mt-20">
       <Container>
         <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 shadow-glow sm:p-10">
-          <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full blur-3xl"
-            style="background: radial-gradient(circle, rgba(2,235,234,0.20), transparent 60%);">
+          <div
+            class="absolute -right-20 -top-20 h-72 w-72 rounded-full blur-3xl"
+            style="background: radial-gradient(circle, rgba(2,235,234,0.20), transparent 60%);"
+          >
           </div>
 
           <div class="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
