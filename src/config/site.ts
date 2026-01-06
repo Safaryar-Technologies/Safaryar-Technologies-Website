@@ -19,6 +19,7 @@ export const site = {
   contact: {
     email: "hello@safaryar.com", // change to your real inbox
     location: "Remote • Worldwide",
+    whatsapp: "93784995362",
   },
   socials: [
     { label: "LinkedIn", href: "#" },
