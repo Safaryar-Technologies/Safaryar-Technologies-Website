@@ -17,7 +17,7 @@ export const site = {
     secondary: { label: "See Our Work", href: "/work" },
   },
   contact: {
-    email: "hello@safaryar.com", // change to your real inbox
+    email: "safaryar.technologies@gmail.com", // change to your real inbox
     location: "Remote • Worldwide",
     whatsapp: "93784995362",
   },
