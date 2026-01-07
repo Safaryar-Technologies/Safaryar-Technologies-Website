@@ -6,6 +6,13 @@ import Container from "../components/Container.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import Button from "../components/Button.astro";
 import { site } from "../config/site";
+
+const waNumber = (site.contact as any)?.whatsapp ?? "";
+const waLink = waNumber
+  ? `https://wa.me/${waNumber}?text=${encodeURIComponent(
+      "Hi Safaryar Technologies! I’m interested in discussing a project."
+    )}`
+  : "";
 ---
 
 <BaseLayout title="Contact" description="Contact Safaryar Technologies to discuss your project.">
@@ -21,11 +28,31 @@ import { site } from "../config/site";
 
       <div class="mt-10 grid gap-6 lg:grid-cols-3">
         <div class="lg:col-span-2 rounded-3xl border border-white/10 bg-white/5 p-8">
-          <!--
-            IMPORTANT:
-            This form uses FormSubmit (no backend) as a default.
-            Replace YOUR_EMAIL_HERE with your email OR use Formspree/Netlify later.
-          -->
+          <!-- WhatsApp quick action -->
+          <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div class="text-sm text-white/75">
+              Prefer chat? Contact us instantly on WhatsApp.
+            </div>
+
+            {waLink ? (
+              <a
+                href={waLink}
+                target="_blank"
+                rel="noreferrer"
+                class="inline-flex items-center justify-center rounded-2xl bg-cyanBrand-500 px-4 py-2 text-sm font-semibold text-ink-950 transition hover:brightness-110"
+              >
+                WhatsApp us →
+              </a>
+            ) : (
+              <div class="text-xs text-white/55">
+                WhatsApp is not configured yet. Add{" "}
+                <span class="text-white/80">contact.whatsapp</span> in{" "}
+                <span class="text-white/80">src/config/site.ts</span>.
+              </div>
+            )}
+          </div>
+
+          <!-- Contact form -->
           <form
             class="grid gap-4"
             action="https://formsubmit.co/safaryar.technologies@gmail.com"
@@ -86,28 +113,53 @@ import { site } from "../config/site";
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div class="text-xs text-white/55">
                 Prefer email? Write to{" "}
-                <a class="text-cyanBrand-500 hover:underline" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+                <a class="text-cyanBrand-500 hover:underline" href={`mailto:${site.contact.email}`}>
+                  {site.contact.email}
+                </a>
+                {waLink && (
+                  <>
+                    {" "}
+                    or{" "}
+                    <a class="text-cyanBrand-500 hover:underline" href={waLink} target="_blank" rel="noreferrer">
+                      WhatsApp
+                    </a>
+                  </>
+                )}
               </div>
               <Button>Send message →</Button>
             </div>
           </form>
 
           <p class="mt-4 text-xs text-white/55">
-            Note: Replace <span class="text-white/80">YOUR_EMAIL_HERE</span> in this file with your real inbox.
+            Note: Replace the FormSubmit inbox with your real inbox if needed.
           </p>
         </div>
 
+        <!-- Sidebar -->
         <div class="rounded-3xl border border-white/10 bg-white/5 p-8">
           <div class="font-display text-lg font-semibold">Contact info</div>
           <div class="mt-4 space-y-3 text-sm text-white/75">
             <div>
               <div class="text-xs uppercase tracking-[0.22em] text-white/60">Email</div>
-              <a class="text-cyanBrand-500 hover:underline" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+              <a class="text-cyanBrand-500 hover:underline" href={`mailto:${site.contact.email}`}>
+                {site.contact.email}
+              </a>
             </div>
+
+            {waLink && (
+              <div>
+                <div class="text-xs uppercase tracking-[0.22em] text-white/60">WhatsApp</div>
+                <a class="text-cyanBrand-500 hover:underline" href={waLink} target="_blank" rel="noreferrer">
+                  Message us on WhatsApp →
+                </a>
+              </div>
+            )}
+
             <div>
               <div class="text-xs uppercase tracking-[0.22em] text-white/60">Location</div>
               <div>{site.contact.location}</div>
             </div>
+
             <div>
               <div class="text-xs uppercase tracking-[0.22em] text-white/60">Social</div>
               <div class="mt-2 flex flex-col gap-2">
