@@ -1,58 +1,301 @@
 ---
 import Container from "./Container.astro";
 
-const plans = [
+type Tier = {
+  name: string;
+  price: string;
+  unit?: string;
+  hint?: string;
+  bullets: string[];
+  featured?: boolean;
+  tag?: string; // e.g. "Most Popular"
+  cta: { label: string; href: string };
+};
+
+type PlanGroup = {
+  id: string;
+  name: string;
+  subtitle: string;
+  description: string;
+  startingAt: string;
+  tag?: string; // e.g. "Best for teams"
+  featured?: boolean;
+  cta: { label: string; href: string };
+  tiers: Tier[];
+};
+
+const groups: PlanGroup[] = [
   {
-    name: "Website",
-    price: "$129",
-    subtitle: "Design • Develop • Host",
+    id: "website",
+    name: "Website Packages",
+    subtitle: "Affordable websites with hosting & support",
     description:
-      "A fast, modern marketing website delivered end-to-end — design, build, and hosting included.",
-    bullets: [
-      "Modern UI/UX + responsive design",
-      "Performance + SEO basics",
-      "Deployment + SSL + hosting setup",
-      "1 month support & minor fixes",
+      "Starter websites for personal brands to business sites — fast delivery, modern UI, and reliable setup.",
+    startingAt: "$100",
+    cta: { label: "Discuss Website", href: "/#contact" },
+    tiers: [
+      {
+        name: "Starter",
+        price: "$100",
+        unit: "/ package",
+        hint: "5 pages",
+        bullets: [
+          "5 Pages",
+          "Secure Web Hosting",
+          "Domain Name",
+          "Professional Email",
+          "Basic Support",
+        ],
+        cta: { label: "Choose Starter", href: "/#contact" },
+      },
+      {
+        name: "Business",
+        price: "$200",
+        unit: "/ package",
+        hint: "10 pages",
+        bullets: [
+          "Up to 10 Pages",
+          "Custom Features",
+          "Enhanced Performance",
+          "SSL Certificate",
+          "Advanced Support",
+        ],
+        cta: { label: "Choose Business", href: "/#contact" },
+      },
+      {
+        name: "Premium",
+        price: "$300",
+        unit: "/ package",
+        hint: "15+ pages",
+        featured: true,
+        tag: "Most Popular",
+        bullets: [
+          "Full Customization",
+          "Advanced Integrations",
+          "5+ Professional Emails",
+          "SSL Certificate",
+          "SEO Optimization",
+        ],
+        cta: { label: "Choose Premium", href: "/#contact" },
+      },
     ],
-    cta: { label: "Start a Website", href: "/#contact" },
-    featured: false,
   },
+
   {
-    name: "MIS",
-    price: "$249",
-    subtitle: "Information Systems",
+    id: "web-app",
+    name: "Web Application Packages",
+    subtitle: "Portals • dashboards • business apps",
     description:
-      "We design information systems for corporations — clear workflows, data structure, and scalable architecture.",
-    bullets: [
-      "Requirements + system design",
-      "User roles, flows, and data modeling",
-      "Architecture + integration plan",
-      "Documentation + handoff",
+      "Best for web apps that need authentication, workflows, integrations, and scalable architecture.",
+    startingAt: "$300",
+    cta: { label: "Discuss Web App", href: "/#contact" },
+    tiers: [
+      {
+        name: "Basic",
+        price: "$300",
+        unit: "/ package",
+        bullets: [
+          "Responsive Design",
+          "Basic Functionality",
+          "Standard Security",
+          "API Integration",
+        ],
+        cta: { label: "Choose Basic", href: "/#contact" },
+      },
+      {
+        name: "Advanced",
+        price: "$400",
+        unit: "/ package",
+        bullets: [
+          "Custom Features",
+          "Enhanced Performance",
+          "High-Level Security",
+          "Admin Panel & Authentication",
+        ],
+        cta: { label: "Choose Advanced", href: "/#contact" },
+      },
+      {
+        name: "Premium",
+        price: "$500",
+        unit: "/ package",
+        featured: true,
+        bullets: [
+          "Full Customization",
+          "Advanced Integrations",
+          "Payment Gateway & Analytics",
+          "Priority Support & Maintenance",
+        ],
+        cta: { label: "Choose Premium", href: "/#contact" },
+      },
     ],
-    cta: { label: "Discuss MIS", href: "/#contact" },
+  },
+
+  {
+    id: "mobile",
+    name: "Mobile App Packages",
+    subtitle: "Design • Build • Publish",
+    description:
+      "Mobile apps for Android/iOS — clean UX, stable builds, and app store publishing support.",
+    startingAt: "$300",
+    cta: { label: "Discuss Mobile App", href: "/#contact" },
+    tiers: [
+      {
+        name: "Starter",
+        price: "$300",
+        unit: "/ package",
+        hint: "5 pages",
+        bullets: [
+          "Up to 5 Pages",
+          "Basic Functionality",
+          "Responsive Design",
+          "Basic Database or Content",
+        ],
+        cta: { label: "Choose Starter", href: "/#contact" },
+      },
+      {
+        name: "Business",
+        price: "$600",
+        unit: "/ package",
+        hint: "10 pages",
+        bullets: [
+          "Up to 10 Pages",
+          "Custom Features",
+          "Advanced Performance",
+          "Google Play & App Store Publishing",
+        ],
+        cta: { label: "Choose Business", href: "/#contact" },
+      },
+      {
+        name: "Premium",
+        price: "$900",
+        unit: "/ package",
+        hint: "15+ pages",
+        featured: true,
+        tag: "Most Popular",
+        bullets: [
+          "Up to 15 Pages",
+          "Full Customization",
+          "Advanced Integrations",
+          "Google Play & App Store Publishing",
+        ],
+        cta: { label: "Choose Premium", href: "/#contact" },
+      },
+    ],
+  },
+
+  {
+    id: "hosting",
+    name: "Hosting Packages",
+    subtitle: "Domain • hosting • SSL • backups",
+    description:
+      "Affordable hosting plans with domain, SSL, and backup options — ideal for small sites to growing businesses.",
+    startingAt: "$60",
+    cta: { label: "Discuss Hosting", href: "/#contact" },
+    tiers: [
+      {
+        name: "Launch Starter",
+        price: "$60",
+        unit: "/ year",
+        bullets: [
+          ".com Domain",
+          "Basic Hosting",
+          "Free SSL Certificate",
+          "Setup from Localhost",
+          "Basic Support",
+        ],
+        cta: { label: "Choose Launch", href: "/#contact" },
+      },
+      {
+        name: "Business Essentials",
+        price: "$80",
+        unit: "/ year",
+        bullets: [
+          ".com Domain",
+          "Quality Hosting",
+          "SSL & Weekly Backups",
+          "1 Email Account",
+          "Security Setup",
+        ],
+        cta: { label: "Choose Essentials", href: "/#contact" },
+      },
+      {
+        name: "Growth Plus",
+        price: "$100",
+        unit: "/ year",
+        featured: true,
+        bullets: [
+          ".com Domain",
+          "Premium Hosting",
+          "SSL & Daily Backups",
+          "Up to 5 Email Accounts",
+          "Priority Support",
+        ],
+        cta: { label: "Choose Growth", href: "/#contact" },
+      },
+    ],
+  },
+
+  {
+    id: "database-mis",
+    name: "Database & MIS Packages",
+    subtitle: "Data structure • security • monitoring",
+    description:
+      "Structured systems for data, workflows, and reporting — built for reliability, security, and scale.",
+    startingAt: "$200",
     featured: true,
     tag: "Best for teams",
-  },
-  {
-    name: "Mobile Application",
-    price: "$499",
-    subtitle: "Design • Build • Launch",
-    description:
-      "We design, develop, and launch your mobile app on Play Store & App Store with a reliable delivery process.",
-    bullets: [
-      "Cross-platform or native approach",
-      "App store release support",
-      "Crash/analytics setup (optional)",
-      "Post-launch maintenance options",
+    cta: { label: "Discuss MIS", href: "/#contact" },
+    tiers: [
+      {
+        name: "Essential",
+        price: "$200",
+        unit: "/ package",
+        hint: "5 pages",
+        bullets: [
+          "Up to 50 GB Storage",
+          "Basic Security",
+          "Data Backup",
+          "Performance",
+          "Monitoring Support",
+        ],
+        cta: { label: "Choose Essential", href: "/#contact" },
+      },
+      {
+        name: "Advanced",
+        price: "$400",
+        unit: "/ package",
+        hint: "10 pages",
+        bullets: [
+          "Up to 200 GB Storage",
+          "Enhanced Security",
+          "Automated Backups",
+          "DB Optimization",
+          "Advanced Support",
+        ],
+        cta: { label: "Choose Advanced", href: "/#contact" },
+      },
+      {
+        name: "Enterprise",
+        price: "$600",
+        unit: "/ package",
+        featured: true,
+        bullets: [
+          "500+ GB Storage",
+          "Advanced Security",
+          "24/7 Monitoring & Backups",
+          "Custom Integrations",
+          "Priority Support & Maintenance",
+        ],
+        cta: { label: "Choose Enterprise", href: "/#contact" },
+      },
     ],
-    cta: { label: "Build an App", href: "/#contact" },
-    featured: false,
   },
 ];
 ---
 
 <section id="plans" class="py-16 sm:py-20">
   <Container>
+    <!-- Header -->
     <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div>
         <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-ink-950/40 px-3 py-1 text-xs text-white/70">
@@ -63,7 +306,7 @@ const plans = [
           Simple starter plans that scale with you
         </h2>
         <p class="mt-3 max-w-2xl text-white/70">
-          Clear pricing to get started fast. Final cost can vary based on scope — we’ll confirm everything before we begin.
+          Pick a package below. Each category expands into tiers — we’ll confirm scope and final cost before we begin.
         </p>
       </div>
 
@@ -75,73 +318,129 @@ const plans = [
       </a>
     </div>
 
-    <div class="mt-10 grid gap-5 lg:grid-cols-3">
-      {plans.map((p) => (
-        <div
+    <!-- Expandable groups -->
+    <div class="mt-10 grid gap-5">
+      {groups.map((g) => (
+        <details
+          id={g.id}
           class={[
-            "group relative overflow-hidden rounded-3xl border bg-ink-950/30 p-6 shadow-sm backdrop-blur",
-            p.featured
+            "group rounded-3xl border bg-ink-950/30 shadow-sm backdrop-blur",
+            g.featured
               ? "border-cyanBrand-500/30 shadow-glow"
               : "border-white/10 hover:border-white/15",
           ].join(" ")}
         >
-          <div class="absolute inset-0 opacity-0 transition group-hover:opacity-100">
-            <div class="absolute -top-24 left-1/2 h-48 w-[520px] -translate-x-1/2 rounded-full bg-cyanBrand-500/10 blur-3xl"></div>
-          </div>
-
-          <div class="relative">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <div class="flex items-center gap-2">
-                  <h3 class="font-display text-xl font-semibold text-white">{p.name}</h3>
-                  {p.tag && (
+          <summary class="cursor-pointer list-none p-6">
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <h3 class="font-display text-xl font-semibold text-white">{g.name}</h3>
+                  {g.tag && (
                     <span class="rounded-full border border-cyanBrand-500/25 bg-cyanBrand-500/10 px-2 py-0.5 text-xs font-semibold text-cyanBrand-200">
-                      {p.tag}
+                      {g.tag}
                     </span>
                   )}
                 </div>
-                <p class="mt-1 text-sm text-white/65">{p.subtitle}</p>
+                <p class="mt-1 text-sm text-white/65">{g.subtitle}</p>
+                <p class="mt-3 max-w-3xl text-sm leading-relaxed text-white/75">
+                  {g.description}
+                </p>
               </div>
 
-              <div class="text-right">
-                <div class="text-xs text-white/60">Starting at</div>
-                <div class="mt-1 font-display text-3xl font-semibold text-white">{p.price}</div>
+              <div class="flex items-start justify-between gap-4 sm:flex-col sm:items-end sm:text-right">
+                <div>
+                  <div class="text-xs text-white/60">Starting at</div>
+                  <div class="mt-1 font-display text-3xl font-semibold text-white">{g.startingAt}</div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                  <a
+                    href={g.cta.href}
+                    class={[
+                      "inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-semibold transition",
+                      g.featured
+                        ? "bg-cyanBrand-500 text-ink-950 hover:brightness-110"
+                        : "bg-white/10 text-white hover:bg-white/15",
+                    ].join(" ")}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {g.cta.label} →
+                  </a>
+
+                  <span class="text-xs text-white/55">
+                    <span class="hidden sm:inline">Expand</span>
+                    <span class="inline sm:hidden">Details</span>
+                    <span class="ml-2 inline-block align-middle transition group-open:rotate-180">▾</span>
+                  </span>
+                </div>
               </div>
             </div>
+          </summary>
 
-            <p class="mt-4 text-sm leading-relaxed text-white/75">{p.description}</p>
+          <div class="border-t border-white/10 p-6 pt-5">
+            <div class="grid gap-4 lg:grid-cols-3">
+              {g.tiers.map((t) => (
+                <div
+                  class={[
+                    "relative overflow-hidden rounded-3xl border bg-ink-950/20 p-6 shadow-sm",
+                    t.featured
+                      ? "border-cyanBrand-500/30 shadow-glow"
+                      : "border-white/10 hover:border-white/15",
+                  ].join(" ")}
+                >
+                  <div class="flex items-start justify-between gap-4">
+                    <div>
+                      <div class="flex items-center gap-2">
+                        <div class="font-display text-lg font-semibold text-white">{t.name}</div>
+                        {t.tag && (
+                          <span class="rounded-full border border-cyanBrand-500/25 bg-cyanBrand-500/10 px-2 py-0.5 text-xs font-semibold text-cyanBrand-200">
+                            {t.tag}
+                          </span>
+                        )}
+                      </div>
+                      {t.hint && <div class="mt-1 text-xs text-white/60">{t.hint}</div>}
+                    </div>
 
-            <ul class="mt-5 space-y-2 text-sm text-white/70">
-              {p.bullets.map((b) => (
-                <li class="flex gap-2">
-                  <span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-cyanBrand-500"></span>
-                  <span>{b}</span>
-                </li>
+                    <div class="text-right">
+                      <div class="font-display text-3xl font-semibold text-white">{t.price}</div>
+                      {t.unit && <div class="mt-1 text-xs text-white/60">{t.unit}</div>}
+                    </div>
+                  </div>
+
+                  <ul class="mt-5 space-y-2 text-sm text-white/70">
+                    {t.bullets.map((b) => (
+                      <li class="flex gap-2">
+                        <span class="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-cyanBrand-500"></span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div class="mt-6 flex items-center justify-between gap-4">
+                    <a
+                      href={t.cta.href}
+                      class={[
+                        "inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-semibold transition",
+                        t.featured
+                          ? "bg-cyanBrand-500 text-ink-950 hover:brightness-110"
+                          : "bg-white/10 text-white hover:bg-white/15",
+                      ].join(" ")}
+                    >
+                      {t.cta.label} →
+                    </a>
+
+                    <span class="text-xs text-white/55">Reply within 24 hours</span>
+                  </div>
+                </div>
               ))}
-            </ul>
-
-            <div class="mt-6 flex items-center justify-between gap-4">
-              <a
-                href={p.cta.href}
-                class={[
-                  "inline-flex items-center justify-center rounded-2xl px-4 py-2 text-sm font-semibold transition",
-                  p.featured
-                    ? "bg-cyanBrand-500 text-ink-950 hover:brightness-110"
-                    : "bg-white/10 text-white hover:bg-white/15",
-                ].join(" ")}
-              >
-                {p.cta.label} →
-              </a>
-
-              <span class="text-xs text-white/55">Reply within 24 hours</span>
             </div>
           </div>
-        </div>
+        </details>
       ))}
     </div>
 
     <p class="mt-6 text-xs text-white/55">
-      Note: Prices shown are starter packages. Domain purchase (if needed) is separate. Hosting is included in the Website plan starter setup.
+      Note: Prices shown are starter packages. Final scope and delivery timeline may vary by requirements. Domain purchase (if needed) is separate.
     </p>
   </Container>
 </section>
