@@ -1,0 +1,107 @@
+---
+import Container from "./Container.astro";
+import SectionHeading from "./SectionHeading.astro";
+import ServiceCard from "./ServiceCard.astro";
+import Button from "./Button.astro";
+import { site } from "../config/site";
+
+// Map service icons -> illustration files in /public/illustrations
+const illustrationByIcon: Record<string, string> = {
+  code: "/illustrations/full-stack.png",
+  mobile: "/illustrations/mobile.png",
+  pen: "/illustrations/uiux.png",
+  cloud: "/illustrations/hosting.png",
+  wrench: "/illustrations/maintenance.png",
+};
+
+type Props = {
+  // Optional override for heading (defaults match your current Services section)
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+
+  // Show/hide the top-right "View all" button (home: true, services page: optional)
+  showViewAll?: boolean;
+};
+
+const {
+  eyebrow = "Services",
+  title = "Everything you need to ship",
+  subtitle = "From UI/UX to full-stack development and ongoing maintenance — Safaryar covers the complete delivery lifecycle.",
+  showViewAll = true,
+} = Astro.props as Props;
+---
+
+<section class="mt-20">
+  <Container>
+    <div class="flex items-end justify-between gap-6">
+      <SectionHeading eyebrow={eyebrow} title={title} subtitle={subtitle} />
+
+      {showViewAll && (
+        <div class="hidden sm:block">
+          <Button href="/services" variant="secondary">View all</Button>
+        </div>
+      )}
+    </div>
+
+    <div class="mt-10 space-y-6">
+      {site.services.map((s, idx) => {
+        const reversed = idx % 2 === 1;
+        const imgSrc = illustrationByIcon[s.icon] ?? "/illustrations/full-stack.png";
+
+        return (
+          <div
+            class={[
+              "relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8",
+              "shadow-sm backdrop-blur",
+            ].join(" ")}
+          >
+            {/* subtle glow */}
+            <div
+              class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full blur-3xl"
+              style="background: radial-gradient(circle, rgba(2,235,234,0.18), transparent 60%);"
+            ></div>
+
+            <div class="relative grid items-center gap-6 md:grid-cols-2">
+              {/* CARD */}
+              <div class={reversed ? "md:order-2" : "md:order-1"}>
+                <ServiceCard
+                  title={s.title}
+                  description={s.description}
+                  bullets={s.bullets}
+                  icon={s.icon}
+                />
+              </div>
+
+              {/* ILLUSTRATION */}
+              <div class={reversed ? "md:order-1" : "md:order-2"}>
+                <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-ink-950/30 p-4 sm:p-6">
+                  <div class="absolute inset-0 opacity-40">
+                    <div
+                      class="absolute -bottom-24 left-1/2 h-48 w-[520px] -translate-x-1/2 rounded-full blur-3xl"
+                      style="background: radial-gradient(circle, rgba(2,235,234,0.22), transparent 60%);"
+                    ></div>
+                  </div>
+
+                  <img
+                    src={imgSrc}
+                    alt={`${s.title} illustration`}
+                    loading="lazy"
+                    class="relative mx-auto w-full max-w-xl rounded-2xl object-contain"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    {/* mobile "View all" button */}
+    {showViewAll && (
+      <div class="mt-8 sm:hidden">
+        <Button href="/services" variant="secondary">View all</Button>
+      </div>
+    )}
+  </Container>
+</section>

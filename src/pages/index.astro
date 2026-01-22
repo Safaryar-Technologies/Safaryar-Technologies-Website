@@ -6,12 +6,12 @@ import Container from "../components/Container.astro";
 import Badge from "../components/Badge.astro";
 import Button from "../components/Button.astro";
 import SectionHeading from "../components/SectionHeading.astro";
-import ServiceCard from "../components/ServiceCard.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import Icon from "../components/Icon.astro";
 import { site } from "../config/site";
 import { getCollection } from "astro:content";
 import PlanBadges from "../components/PlanBadges.astro";
+import ServicesRows from "../components/ServicesRows.astro";
 
 const caseStudies = (await getCollection("case-studies"))
   .filter((p) => !p.data.draft)
@@ -69,8 +69,7 @@ const caseStudies = (await getCollection("case-studies"))
             <div
               class="absolute -inset-2 rounded-3xl blur-2xl"
               style="background: radial-gradient(circle, rgba(2,235,234,0.18), transparent 55%);"
-            >
-            </div>
+            ></div>
 
             <div class="relative rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow">
               <div class="flex items-center justify-between">
@@ -138,31 +137,7 @@ const caseStudies = (await getCollection("case-studies"))
     </section>
 
     <!-- SERVICES -->
-    <section class="mt-20">
-      <Container>
-        <div class="flex items-end justify-between gap-6">
-          <SectionHeading
-            eyebrow="Services"
-            title="Everything you need to ship"
-            subtitle="From UI/UX to full-stack development and ongoing maintenance — Safaryar covers the complete delivery lifecycle."
-          />
-          <div class="hidden sm:block">
-            <Button href="/services" variant="secondary">View all</Button>
-          </div>
-        </div>
-
-        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {site.services.map((s) => (
-            <ServiceCard
-              title={s.title}
-              description={s.description}
-              bullets={s.bullets}
-              icon={s.icon}
-            />
-          ))}
-        </div>
-      </Container>
-    </section>
+    <ServicesRows />
 
     <!-- PLANS -->
     <PlanBadges />
@@ -223,8 +198,7 @@ const caseStudies = (await getCollection("case-studies"))
           <div
             class="absolute -right-20 -top-20 h-72 w-72 rounded-full blur-3xl"
             style="background: radial-gradient(circle, rgba(2,235,234,0.20), transparent 60%);"
-          >
-          </div>
+          ></div>
 
           <div class="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div class="max-w-2xl">
