@@ -4,23 +4,27 @@ import SectionHeading from "./SectionHeading.astro";
 import ServiceCard from "./ServiceCard.astro";
 import Button from "./Button.astro";
 import { site } from "../config/site";
+import { Image } from "astro:assets";
 
-// Map service icons -> illustration files in /public/illustrations
-const illustrationByIcon: Record<string, string> = {
-  code: "/illustrations/full-stack.png",
-  mobile: "/illustrations/mobile.png",
-  pen: "/illustrations/uiux.png",
-  cloud: "/illustrations/hosting.png",
-  wrench: "/illustrations/maintenance.png",
+// Import images from src/assets/illustrations
+import fullStackImg from "../assets/illustrations/full-stack.png";
+import mobileImg from "../assets/illustrations/mobile.png";
+import uiuxImg from "../assets/illustrations/uiux.png";
+import hostingImg from "../assets/illustrations/hosting.png";
+import maintenanceImg from "../assets/illustrations/maintenance.png";
+
+const illustrationByIcon: Record<string, any> = {
+  code: fullStackImg,
+  mobile: mobileImg,
+  pen: uiuxImg,
+  cloud: hostingImg,
+  wrench: maintenanceImg,
 };
 
 type Props = {
-  // Optional override for heading (defaults match your current Services section)
   eyebrow?: string;
   title?: string;
   subtitle?: string;
-
-  // Show/hide the top-right "View all" button (home: true, services page: optional)
   showViewAll?: boolean;
 };
 
@@ -30,6 +34,14 @@ const {
   subtitle = "From UI/UX to full-stack development and ongoing maintenance — Safaryar covers the complete delivery lifecycle.",
   showViewAll = true,
 } = Astro.props as Props;
+
+// slug helper for anchors
+const slugify = (str: string) =>
+  str
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 ---
 
 <section class="mt-20">
@@ -47,14 +59,14 @@ const {
     <div class="mt-10 space-y-6">
       {site.services.map((s, idx) => {
         const reversed = idx % 2 === 1;
-        const imgSrc = illustrationByIcon[s.icon] ?? "/illustrations/full-stack.png";
+        const img = illustrationByIcon[s.icon] ?? fullStackImg;
+        const anchor = slugify(s.title);
 
         return (
-          <div
-            class={[
-              "relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8",
-              "shadow-sm backdrop-blur",
-            ].join(" ")}
+          <article
+            id={anchor}
+            data-animate
+            class="service-row relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-sm backdrop-blur sm:p-8"
           >
             {/* subtle glow */}
             <div
@@ -62,46 +74,99 @@ const {
               style="background: radial-gradient(circle, rgba(2,235,234,0.18), transparent 60%);"
             ></div>
 
-            <div class="relative grid items-center gap-6 md:grid-cols-2">
+            <div class="relative grid items-stretch gap-6 md:grid-cols-2 md:gap-8">
               {/* CARD */}
               <div class={reversed ? "md:order-2" : "md:order-1"}>
-                <ServiceCard
-                  title={s.title}
-                  description={s.description}
-                  bullets={s.bullets}
-                  icon={s.icon}
-                />
+                <div class="h-full">
+                  <ServiceCard
+                    title={s.title}
+                    description={s.description}
+                    bullets={s.bullets}
+                    icon={s.icon}
+                  />
+                </div>
               </div>
 
               {/* ILLUSTRATION */}
               <div class={reversed ? "md:order-1" : "md:order-2"}>
-                <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-ink-950/30 p-4 sm:p-6">
-                  <div class="absolute inset-0 opacity-40">
-                    <div
-                      class="absolute -bottom-24 left-1/2 h-48 w-[520px] -translate-x-1/2 rounded-full blur-3xl"
-                      style="background: radial-gradient(circle, rgba(2,235,234,0.22), transparent 60%);"
-                    ></div>
-                  </div>
+                <a
+                  href={`/services#${anchor}`}
+                  class="block h-full"
+                  aria-label={`Open ${s.title} details`}
+                >
+                  <div class="relative flex h-full items-center justify-center overflow-hidden rounded-3xl border border-white/10 bg-ink-950/30 p-4 sm:p-6">
+                    <div class="absolute inset-0 opacity-40">
+                      <div
+                        class="absolute -bottom-24 left-1/2 h-48 w-[520px] -translate-x-1/2 rounded-full blur-3xl"
+                        style="background: radial-gradient(circle, rgba(2,235,234,0.22), transparent 60%);"
+                      ></div>
+                    </div>
 
-                  <img
-                    src={imgSrc}
-                    alt={`${s.title} illustration`}
-                    loading="lazy"
-                    class="relative mx-auto w-full max-w-xl rounded-2xl object-contain"
-                  />
-                </div>
+                    <Image
+                      src={img}
+                      alt={`${s.title} illustration`}
+                      class="relative mx-auto w-full max-w-xl rounded-2xl object-contain"
+                      widths={[640, 900, 1200]}
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      format="webp"
+                      quality={82}
+                      loading="lazy"
+                      decoding="async"
+                      inferSize
+                      placeholder="blur"
+                    />
+                  </div>
+                </a>
               </div>
             </div>
-          </div>
+          </article>
         );
       })}
     </div>
 
-    {/* mobile "View all" button */}
     {showViewAll && (
       <div class="mt-8 sm:hidden">
         <Button href="/services" variant="secondary">View all</Button>
       </div>
     )}
   </Container>
+
+  <style>
+    /* Scroll animation (no library) */
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 600ms ease, transform 600ms ease;
+      will-change: opacity, transform;
+    }
+    [data-animate].in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      [data-animate] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+  </style>
+
+  <script>
+    // IntersectionObserver scroll reveal
+    const items = document.querySelectorAll("[data-animate]");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in-view");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    items.forEach((el) => io.observe(el));
+  </script>
 </section>

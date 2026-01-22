@@ -2,7 +2,8 @@
 import Icon from "./Icon.astro";
 const { title, description, bullets, icon } = Astro.props;
 ---
-<div class="group rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-cyanBrand-500/30 hover:bg-white/7 hover:shadow-glow">
+
+<div class="group flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-cyanBrand-500/30 hover:bg-white/7 hover:shadow-glow">
   <div class="flex items-start gap-3">
     <div class="rounded-xl border border-white/10 bg-ink-950/40 p-3 text-cyanBrand-500">
       <Icon name={icon} />
@@ -21,4 +22,8 @@ const { title, description, bullets, icon } = Astro.props;
       </li>
     ))}
   </ul>
+
+  <div class="mt-5 border-t border-white/10 pt-4 text-xs text-white/55">
+    Typical delivery: scope → design → build → deploy → support
+  </div>
 </div>

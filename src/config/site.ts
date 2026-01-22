@@ -30,57 +30,75 @@ export const site = {
     {
       title: "Full-Stack Web Development",
       description:
-        "Fast, scalable web apps, portals, dashboards, and SaaS platforms.",
+        "Fast, scalable web apps, portals, dashboards, and SaaS platforms — built with clean architecture and performance in mind.",
       bullets: [
         "Modern UI + robust backend",
-        "APIs & integrations",
-        "Performance & security basics",
+        "REST/GraphQL APIs & integrations",
+        "Auth, roles, permissions, dashboards",
+        "Database design + migrations",
+        "Performance, SEO & caching basics",
+        "Security best practices (OWASP)",
       ],
       icon: "code",
     },
     {
       title: "Mobile App Development",
-      description: "iOS/Android apps with clean UX and reliable architecture.",
+      description:
+        "iOS/Android apps with clean UX and reliable architecture — from MVP to production releases with analytics & stability baked in.",
       bullets: [
-        "Cross-platform or native",
+        "Cross-platform or native approach",
         "App store release support",
-        "Analytics + crash reporting",
+        "Push notifications & deep links",
+        "Analytics + crash reporting setup",
+        "Offline-ready data & sync options",
+        "Post-launch improvements & fixes",
       ],
       icon: "mobile",
     },
     {
       title: "UI/UX Design",
-      description: "From wireframes to high-fidelity UI and design systems.",
+      description:
+        "From user flows to high-fidelity UI — we design conversion-first screens that feel premium and stay consistent across the product.",
       bullets: [
-        "User flows & prototypes",
-        "Design systems",
-        "Conversion-focused screens",
+        "User flows & wireframes",
+        "Clickable prototypes (Figma)",
+        "Design systems & components",
+        "Mobile-first & responsive layouts",
+        "Accessibility-friendly UI patterns",
+        "Handoff-ready specs for dev",
       ],
       icon: "pen",
     },
     {
       title: "Hosting & Deployment",
       description:
-        "Ship confidently with CI/CD, monitoring, and secure hosting.",
+        "Ship confidently with CI/CD, monitoring, backups, and secure hosting — so your product stays fast, stable, and easy to update.",
       bullets: [
         "Cloud + VPS options",
+        "CI/CD pipelines & staging",
+        "SSL, domains, and DNS setup",
         "Backups & monitoring",
-        "CI/CD pipelines",
+        "Caching/CDN configuration",
+        "Release & rollback strategy",
       ],
       icon: "cloud",
     },
     {
       title: "Maintenance & Support",
       description:
-        "Keep your product healthy with ongoing improvements and fixes.",
+        "Keep your product healthy with ongoing improvements, bug fixes, dependency upgrades, and performance tuning — without surprises.",
       bullets: [
         "Bug fixes & enhancements",
         "Dependency upgrades",
         "Performance optimization",
+        "Security patches & audits",
+        "Monitoring alerts & reporting",
+        "Monthly roadmap + improvements",
       ],
       icon: "wrench",
     },
   ],
+
   process: [
     {
       title: "Discover",
