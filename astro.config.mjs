@@ -4,7 +4,7 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://safaryar.com", // change later to your real domain
+  site: "https://safaryar-technologies.com", // change later to your real domain
   integrations: [
     tailwind({
       applyBaseStyles: false,
